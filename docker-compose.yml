@@ -1,0 +1,29 @@
+version: '3.0'
+networks:
+  inner:
+
+services:
+  db:
+    image: 'postgres:12-alpine'
+    restart: always
+    tty: true
+    environment:
+      POSTGRES_PASSWORD: 'matthew'
+      POSTGRES_USER: 'plump'
+      POSTGRES_DB: 'xresources'
+      PGDATA: '/var/lib/postgresql/data'
+    volumes:
+      - /var/cache/docker/xresources:/var/lib/postgres/data
+    networks:
+      - inner
+  php:
+    build: ./php
+    restart: always
+    networks:
+      - inner
+    depends_on:
+      - db
+    ports:
+      - "3000:80"
+    volumes:
+      - ./src:/var/www/html
