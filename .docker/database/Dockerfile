@@ -4,3 +4,4 @@ ENV   POSTGRES_USER='plump'
 ENV   POSTGRES_DB='xresources'
 ENV   PGDATA='/var/lib/postgres/data'
 COPY  *.sql /docker-entrypoint-initdb.d/
+COPY  ./init.sh /
