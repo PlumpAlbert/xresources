@@ -9,11 +9,10 @@
     integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
     crossorigin="anonymous"
   ></script>
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-<h1>Will it work?</h1>
-<script src="main.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
 

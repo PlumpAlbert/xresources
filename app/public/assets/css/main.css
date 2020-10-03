@@ -1,4 +1,18 @@
+html {
+  width: 100%;
+}
+body {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .schema {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.schema__colors-wrapper {
   display: flex;
   flex-wrap: wrap;
   max-width: calc(8 * 2rem + 9 * 1rem);

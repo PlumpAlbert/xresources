@@ -9,40 +9,36 @@ function createSchema($row) {
   $response['colors'] = explode(',', $row['colors']);
   return $response;
 }
-header('Content-Type: application/json');
 
-$conn = new PDO('pgsql:host=db;dbname=xresources;', 'plump', 'matthew');
-$query = 'SELECT * FROM "schemas"';
-
-// If id is provided - return only this schema
-if (isset($_GET['id'])) {
-  $query = $query . " WHERE id = $_GET[id]";
+function getSchema($id) {
+  $conn = new PDO('pgsql:host=db;dbname=xresources;', 'plump', 'matthew');
+  $query = 'SELECT * FROM "schemas"'
+    . " WHERE id=$id";
   $res = $conn->query($query);
   if ($res) {
-    echo json_encode(createSchema($res->fetch(PDO::FETCH_ASSOC)));
+    $res = createSchema($res->fetch(PDO::FETCH_ASSOC));
     $conn = null;
-    exit();
+    return $res;
   } else {
-    echo json_encode(array(
-      "error" => true,
-      "message" => "Schema with id `$_GET[id]` is not found"
-    ));
     $conn = null;
-    die();
+    return false;
   }
 }
 
-if (isset($_GET['count'])) {
-  $query = $query . " LIMIT $_GET[count]";
+function getSchemas($count, $offset) {
+  $conn = new PDO('pgsql:host=db;dbname=xresources;', 'plump', 'matthew');
+  $query = 'SELECT * FROM "schemas"';
+  if (isset($count)) {
+    $query = $query . " LIMIT $count";
+  }
+  if (isset($offset)) {
+    $query = $query . " OFFSET $offset";
+  }
+  $res = $conn->query($query);
+  $schemas = array();
+  while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
+    $schemas[] = createSchema($row);
+  }
+  $conn = null;
+  return $schemas;
 }
-if (isset($_GET['offset'])) {
-  $query = $query . " OFFSET $_GET[offset]";
-}
-
-$res = $conn->query($query);
-$schemas = array();
-while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
-  $schemas[] = createSchema($row);
-}
-$conn = null;
-echo json_encode($schemas);
