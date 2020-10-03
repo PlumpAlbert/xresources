@@ -1,0 +1,15 @@
+.schema {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: calc(8 * 2rem + 9 * 1rem);
+  padding: 0.5rem 0 0.5rem 1rem;
+  box-sizing: border-box;
+}
+.schema__color {
+  width: 2rem;
+  height: 2rem;
+  margin: 0.3rem 1rem 0.3rem 0;
+}
+.schema__color:last-child {
+  margin-right: 0;
+}
