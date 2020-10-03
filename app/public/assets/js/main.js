@@ -21,8 +21,10 @@ $(document).ready(() => {
 
 $(document).scroll(e => {
   if (isFetching) return;
-  const {scrollY, scrollMaxY} = window;
-  if (scrollY > scrollMaxY - 500) {
+  const {innerHeight, scrollY} = window;
+  const {scrollHeight: totalHeight} = document.body;
+  const scrolledHeight = innerHeight + scrollY;
+  if (delta > totalHeight - scrolledHeight) {
     isFetching = true;
     getSchemas(fetchCount, fetchOffset).then(resolver);
   }
