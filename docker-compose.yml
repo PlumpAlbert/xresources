@@ -4,7 +4,7 @@ networks:
 
 services:
   db:
-    image: 'postgres:12-alpine'
+    build: ./.docker/database
     restart: always
     tty: true
     environment:
@@ -17,7 +17,7 @@ services:
     networks:
       - inner
   php:
-    build: ./php
+    build: ./.docker/php
     restart: always
     networks:
       - inner
@@ -26,4 +26,4 @@ services:
     ports:
       - "3000:80"
     volumes:
-      - ./src:/var/www/html
+      - ./app:/var/www/html
